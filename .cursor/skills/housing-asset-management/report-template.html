@@ -1,0 +1,449 @@
+<!--
+  房屋资产管理报告 HTML 模板
+  用途：生成面访业主时使用的专业资产管理报告
+  使用方式：替换 {{变量}} 占位符后直接在浏览器打开/打印
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>房屋资产管理方案 - {{owner_name}}</title>
+<style>
+  :root {
+    --primary: #1a56db;
+    --primary-light: #e8effc;
+    --text: #1f2937;
+    --text-secondary: #6b7280;
+    --border: #e5e7eb;
+    --success: #059669;
+    --warning: #d97706;
+    --bg: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    color: var(--text);
+    line-height: 1.6;
+    background: var(--bg);
+  }
+
+  .page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px;
+  }
+
+  @media print {
+    .page { padding: 20px; }
+    .page-break { page-break-before: always; }
+  }
+
+  /* 封面 */
+  .cover {
+    text-align: center;
+    padding: 80px 0;
+    border-bottom: 3px solid var(--primary);
+    margin-bottom: 40px;
+  }
+
+  .cover .company-name {
+    font-size: 14px;
+    color: var(--primary);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .cover h1 {
+    font-size: 32px;
+    color: var(--primary);
+    margin-bottom: 16px;
+  }
+
+  .cover .subtitle {
+    font-size: 16px;
+    color: var(--text-secondary);
+  }
+
+  .cover .meta {
+    margin-top: 40px;
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+
+  .cover .meta span { margin: 0 12px; }
+
+  /* 章节 */
+  .section { margin-bottom: 36px; }
+
+  .section-title {
+    font-size: 20px;
+    color: var(--primary);
+    border-left: 4px solid var(--primary);
+    padding-left: 12px;
+    margin-bottom: 20px;
+  }
+
+  /* 信息卡片 */
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .info-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 16px;
+    background: var(--primary-light);
+    border-radius: 6px;
+  }
+
+  .info-item .label {
+    color: var(--text-secondary);
+    font-size: 14px;
+  }
+
+  .info-item .value {
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  /* 服务清单表格 */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 16px;
+  }
+
+  th, td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  th {
+    background: var(--primary);
+    color: white;
+    font-weight: 500;
+  }
+
+  tr:nth-child(even) { background: #f9fafb; }
+
+  /* 费用明细 */
+  .fee-highlight {
+    background: var(--primary-light);
+    border: 2px solid var(--primary);
+    border-radius: 8px;
+    padding: 24px;
+    text-align: center;
+    margin: 20px 0;
+  }
+
+  .fee-highlight .amount {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--primary);
+  }
+
+  .fee-highlight .desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+  }
+
+  /* 保障卡片 */
+  .guarantee-card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 12px;
+  }
+
+  .guarantee-card h4 {
+    color: var(--success);
+    margin-bottom: 8px;
+  }
+
+  .guarantee-card p {
+    color: var(--text-secondary);
+    font-size: 14px;
+  }
+
+  /* 流程时间线 */
+  .timeline { position: relative; padding-left: 28px; }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 4px;
+    bottom: 4px;
+    width: 2px;
+    background: var(--primary);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--primary);
+  }
+
+  .timeline-item h4 { margin-bottom: 4px; }
+
+  .timeline-item p {
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+
+  /* 页脚 */
+  .footer {
+    text-align: center;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-size: 12px;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- 封面 -->
+  <div class="cover">
+    <div class="company-name">{{company_name}}</div>
+    <h1>房屋资产管理方案</h1>
+    <p class="subtitle">为 {{owner_name}} 定制的专属托管服务方案</p>
+    <div class="meta">
+      <span>{{community_name}}</span> |
+      <span>{{house_type}}</span> |
+      <span>{{area}}㎡</span>
+    </div>
+    <div class="meta" style="margin-top:12px">
+      报告日期：{{report_date}}
+    </div>
+  </div>
+
+  <!-- 房源信息 -->
+  <div class="section">
+    <h2 class="section-title">房源基本信息</h2>
+    <div class="info-grid">
+      <div class="info-item">
+        <span class="label">业主</span>
+        <span class="value">{{owner_name}}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">小区</span>
+        <span class="value">{{community_name}}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">户型</span>
+        <span class="value">{{house_type}}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">面积</span>
+        <span class="value">{{area}}㎡</span>
+      </div>
+      <div class="info-item">
+        <span class="label">楼层</span>
+        <span class="value">{{floor}}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">城市</span>
+        <span class="value">{{city}}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">装修</span>
+        <span class="value">{{decoration}}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">当前状态</span>
+        <span class="value">{{status}}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 市场分析 -->
+  <div class="section">
+    <h2 class="section-title">市场租赁分析</h2>
+    <table>
+      <tr>
+        <th>指标</th>
+        <th>数据</th>
+      </tr>
+      <tr>
+        <td>{{community_name}} 近期成交均价</td>
+        <td><strong>{{avg_rent}} 元/月</strong></td>
+      </tr>
+      <tr>
+        <td>建议挂牌价</td>
+        <td><strong>{{suggested_rent}} 元/月</strong></td>
+      </tr>
+      <tr>
+        <td>日均租金</td>
+        <td>{{daily_rent}} 元/天</td>
+      </tr>
+      <tr>
+        <td>预计出租周期</td>
+        <td>{{rent_cycle}}</td>
+      </tr>
+    </table>
+    <p style="font-size:14px;color:var(--text-secondary)">
+      * 数据来源：小区近期成交租赁价格，仅供参考
+    </p>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- 服务方案 -->
+  <div class="section">
+    <h2 class="section-title">全托管服务方案</h2>
+    <table>
+      <tr>
+        <th>服务项目</th>
+        <th>内容</th>
+        <th>费用</th>
+      </tr>
+      <tr>
+        <td>专业保洁</td>
+        <td>入住前全屋深度保洁</td>
+        <td style="color:var(--success);font-weight:600">免费</td>
+      </tr>
+      <tr>
+        <td>智能门锁</td>
+        <td>安装智能密码锁，远程管理</td>
+        <td style="color:var(--success);font-weight:600">免费</td>
+      </tr>
+      <tr>
+        <td>租客筛选</td>
+        <td>严格审核租客资质与信用</td>
+        <td style="color:var(--success);font-weight:600">包含</td>
+      </tr>
+      <tr>
+        <td>日常维护</td>
+        <td>水电维修、设备保养、定期巡检</td>
+        <td style="color:var(--success);font-weight:600">包含</td>
+      </tr>
+      <tr>
+        <td>租金代收</td>
+        <td>按时收租并转付业主</td>
+        <td style="color:var(--success);font-weight:600">包含</td>
+      </tr>
+      <tr>
+        <td>退租管理</td>
+        <td>退租验收、押金结算、快速续租</td>
+        <td style="color:var(--success);font-weight:600">包含</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- 费用明细 -->
+  <div class="section">
+    <h2 class="section-title">透明费用明细</h2>
+    <div class="fee-highlight">
+      <div class="amount">{{monthly_fee}} 元/月</div>
+      <div class="desc">每月服务费（3天房租） · 不赚租金差价 · 房子租出去才收费</div>
+    </div>
+    <table>
+      <tr>
+        <th>项目</th>
+        <th>金额</th>
+        <th>说明</th>
+      </tr>
+      <tr>
+        <td>月租金</td>
+        <td>{{suggested_rent}} 元</td>
+        <td>基于小区成交均价</td>
+      </tr>
+      <tr>
+        <td>月服务费</td>
+        <td>{{monthly_fee}} 元</td>
+        <td>日租金 × 3天</td>
+      </tr>
+      <tr>
+        <td><strong>业主月实收</strong></td>
+        <td><strong>{{owner_income}} 元</strong></td>
+        <td>租金 - 服务费</td>
+      </tr>
+      <tr>
+        <td>年服务费合计</td>
+        <td>{{yearly_fee}} 元</td>
+        <td>月服务费 × 12</td>
+      </tr>
+      <tr>
+        <td><strong>业主年实收</strong></td>
+        <td><strong>{{yearly_income}} 元</strong></td>
+        <td>年租金 - 年服务费</td>
+      </tr>
+    </table>
+    <p style="font-size:14px;color:var(--text-secondary);margin-top:8px">
+      * 空置期不收取任何费用，房子租出去时才开始计费
+    </p>
+  </div>
+
+  <!-- 风险保障 -->
+  <div class="section">
+    <h2 class="section-title">首月风险保障</h2>
+    <div class="guarantee-card">
+      <h4>承诺一：首月必租</h4>
+      <p>我们承诺在签约后首月内将房屋租出。若未能如期出租，以下保障自动生效。</p>
+    </div>
+    <div class="guarantee-card">
+      <h4>承诺二：赔付半月租金</h4>
+      <p>首月未租出，我们先行赔付 <strong>{{half_month_rent}} 元</strong>（半月租金）给业主。</p>
+    </div>
+    <div class="guarantee-card">
+      <h4>承诺三：服务全部赠送</h4>
+      <p>已安装的智能门锁和已完成的保洁服务，全部免费赠送给业主，由我方承担全部费用。</p>
+    </div>
+  </div>
+
+  <!-- 合作流程 -->
+  <div class="section">
+    <h2 class="section-title">合作流程</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <h4>签约合作</h4>
+        <p>签订资产管理服务协议，明确双方权责</p>
+      </div>
+      <div class="timeline-item">
+        <h4>房屋准备（1-3天）</h4>
+        <p>专业保洁 + 智能门锁安装 + 房屋拍照上架</p>
+      </div>
+      <div class="timeline-item">
+        <h4>推广招租（3-7天）</h4>
+        <p>多渠道推广，精准匹配优质租客</p>
+      </div>
+      <div class="timeline-item">
+        <h4>租客入住</h4>
+        <p>签订租赁合同，办理入住手续</p>
+      </div>
+      <div class="timeline-item">
+        <h4>持续服务</h4>
+        <p>按月收租转付、日常维护维修、定期巡检汇报</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 页脚 -->
+  <div class="footer">
+    <p>{{company_name}} · 专业房屋资产管理服务</p>
+    <p>本方案有效期30天 · 报告生成日期：{{report_date}}</p>
+  </div>
+
+</div>
+</body>
+</html>
