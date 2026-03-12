@@ -1,22 +1,61 @@
 /**
- * Input Component
- * 
- * Standard text input field.
+ * @file Input.jsx
+ * @description 输入框组件，遵循 Apple 的极简设计。
  */
-import React from 'react';
 
-export const Input = React.forwardRef(({ className = '', type = "text", ...props }, ref) => {
+import React, { useState } from 'react';
+import { colors, spacing, typography, effects, animations } from '../tokens';
+
+const Input = ({ 
+  placeholder, 
+  value, 
+  onChange, 
+  type = 'text',
+  disabled = false,
+  style,
+  ...props 
+}) => {
+  const [isFocused, setIsFocused] = useState(false);
+
+  const containerStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: spacing[2],
+    width: '100%',
+    ...style,
+  };
+
+  const inputStyle = {
+    width: '100%',
+    padding: `${spacing[3]} ${spacing[4]}`,
+    borderRadius: effects.radius.md,
+    backgroundColor: colors.bg.secondary,
+    border: `1px solid ${isFocused ? colors.brand.blue : colors.gray[200]}`,
+    fontFamily: typography.family.base,
+    fontSize: typography.size.base,
+    color: colors.text.primary,
+    outline: 'none',
+    transition: `border-color ${animations.duration.fast} ${animations.ease.inOut}`,
+    boxSizing: 'border-box',
+    opacity: disabled ? 0.42 : 1,
+    cursor: disabled ? 'not-allowed' : 'text',
+  };
+
   return (
-    <input
-      type={type}
-      className={`
-        flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50
-        ${className}
-      `}
-      ref={ref}
-      {...props}
-    />
+    <div style={containerStyle}>
+      <input
+        type={type}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        disabled={disabled}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
+        style={inputStyle}
+        {...props}
+      />
+    </div>
   );
-});
+};
 
-Input.displayName = "Input";
+export default Input;

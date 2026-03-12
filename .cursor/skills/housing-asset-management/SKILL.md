@@ -1,116 +1,85 @@
 ---
 name: housing-asset-management
-description: Generate property asset management reports and sales scripts for housing rental companies. Calculates service fees, commissions, and generates professional HTML reports for landlord face-to-face meetings. Use when the user mentions housing rental, asset management, landlord acquisition, property report, rent pricing, or service fee calculation.
+description: Generate customized property management proposal reports (HTML webpage) and matching sales scripts for landlords. Use when the user mentions property management proposals, landlord reports, rental management pitches, housing asset management, or needs to create materials for acquiring new property listings for 省心租.
 ---
 
-# 房屋租赁资产管理 - 收房话术与报告生成
+# 房屋资产管理 - 业主提案报告生成器
 
-## 核心业务模型
+为「省心租」生成定制化的业主提案报告（HTML 网页）和配套话术，用于收房时向业主展示服务方案。
 
-### 服务定位
-- 公司角色：房屋租赁资产管理服务商（非中介赚差价）
-- 核心价值：稳定租金 + 专业管理 + 可信赖的服务者
-- 收费模式：每月收取 **3天房租** 作为服务费，不赚租金差价
+## 触发场景
 
-### 服务内容
-| 项目 | 说明 |
-|------|------|
-| 免费保洁 | 入住前专业保洁，提前完成 |
-| 智能门锁 | 免费安装，提升安全与便利 |
-| 首月承诺 | 承诺首月租出，否则先付业主半月佣金 |
-| 日常维护 | 按时维修维护，业主无需操心 |
-| 租客管理 | 筛选优质租客，保障出租率 |
-
-### 风险兜底机制
-若首月未租出：
-1. 门锁 → 送给业主（公司承担）
-2. 保洁 → 送给业主（公司承担）
-3. 半月租金 → 先行赔付给业主
-
-### 费用计算公式
-```
-月租金 = 小区租赁均价（由系统/用户提供）
-日租金 = 月租金 / 30
-服务费 = 日租金 × 3（每月）
-业主实收 = 月租金 - 服务费
-```
-
-**示例（北京均价 5000 元/月）：**
-- 日租金：≈167 元
-- 月服务费：≈500 元
-- 业主月实收：≈4,500 元
-
----
+- 用户需要为某个业主生成提案报告
+- 用户需要收房话术
+- 用户提到业主报告、租房管理提案、资产管理方案
 
 ## 工作流程
 
-当用户需要生成收房报告或准备面访话术时，按以下步骤执行：
-
 ### Step 1: 收集房源信息
 
-向用户收集以下必要信息：
+向用户确认以下必填信息：
 
-```
-必填信息：
-- [ ] 业主姓名
-- [ ] 小区名称
-- [ ] 城市
-- [ ] 房屋户型（如：两室一厅）
-- [ ] 房屋面积（平方米）
-- [ ] 楼层信息
-- [ ] 小区近期租赁均价（月租金）
-- [ ] 房屋当前状态（空置/在住/装修中）
+| 字段 | 说明 | 示例 |
+|------|------|------|
+| 业主姓名 | 报告抬头 | 张三 |
+| 房屋地址 | 完整地址 | 杭州市西湖区XX路XX号XX室 |
+| 户型 | 几室几厅 | 2室1厅1卫 |
+| 面积 | 建筑面积(㎡) | 89㎡ |
+| 建议月租金 | 市场评估租金 | ¥4,500/月 |
+| 房屋现状 | 是否需要保洁/维修 | 需要保洁，无需维修 |
 
-选填信息：
-- [ ] 装修情况（精装/简装/毛坯）
-- [ ] 朝向
-- [ ] 是否有电梯
-- [ ] 特殊卖点（地铁近、学区等）
-```
+可选信息（有则更好）：
+- 楼层/总楼层
+- 装修情况（精装/简装/毛坯）
+- 配套设施（家电家具清单）
+- 周边配套（地铁、商圈等）
 
-### Step 2: 计算费用
+### Step 2: 计算费用明细
 
-使用计算脚本生成费用明细：
+根据业务模型计算所有费用，详见 [business-model.md](business-model.md)。
 
-```bash
-python scripts/calculate.py --rent 5000 --city 北京
-```
+核心公式：
+- **服务费** = 月租金 ÷ 30 × 3（即3天租金/月）
+- **保证金** = 月租金 × 0.5（半个月租金，签约时支付给业主）
+- **业主实际月收入** = 月租金 - 服务费
 
-或在对话中直接计算：
-- 月服务费 = 月租金 / 30 × 3
-- 首月保障金 = 月租金 / 2（仅未租出时赔付）
-- 年服务费总计 = 月服务费 × 12
+### Step 3: 生成 HTML 报告
 
-### Step 3: 生成资产管理报告
+使用 [report-template.md](report-template.md) 中的模板生成单文件 HTML 报告。
 
-基于收集的信息，使用 [report-template.html](report-template.html) 模板生成专业的 HTML 报告。
+报告要求：
+- **纯 HTML/CSS/JS**，单文件，可直接浏览器打开
+- **专业商务风**：深色调、沉稳大气
+- **响应式设计**：手机和电脑都能看
+- **包含打印样式**：方便打印纸质版
+- 所有业主信息、费用明细、服务承诺都要体现
 
-报告包含以下模块：
-1. **封面** - 公司品牌 + 业主/房源信息
-2. **市场分析** - 小区租赁均价、周边对比
-3. **服务方案** - 完整服务内容清单
-4. **费用明细** - 透明的费用计算表
-5. **风险保障** - 首月承诺 + 兜底方案
-6. **合作流程** - 签约到入住的时间线
+### Step 4: 生成配套话术
 
-### Step 4: 准备面访话术
+使用 [sales-script.md](sales-script.md) 中的模板生成话术。
 
-根据房源具体情况，从 [sales-scripts.md](sales-scripts.md) 中选取并定制话术。
+话术要求：
+- 与报告内容一一对应
+- 口语化、自然、有说服力
+- 按报告章节顺序组织
+- 标注关键话术节点（如何回应常见疑虑）
 
----
+### Step 5: 输出
 
-## 报告生成规范
+将以下内容交付给用户：
+1. HTML 报告文件
+2. 配套话术文本
 
-1. 所有金额保留整数，使用千分位分隔符
-2. 百分比保留一位小数
-3. 报告日期使用生成当天日期
-4. HTML 报告需可直接在浏览器打开并打印
-5. 配色方案：专业蓝（#1a56db）+ 白底，体现信任感
+## 公司信息
 
----
+| 项目 | 内容 |
+|------|------|
+| 公司名称 | 省心租 |
+| 联系电话 | 138-8888-6688 |
+| 服务理念 | 不赚差价，只收服务费；租不出去，分文不取 |
 
 ## 补充资源
 
-- 标准话术参考：[sales-scripts.md](sales-scripts.md)
-- 报告 HTML 模板：[report-template.html](report-template.html)
-- 费用计算工具：[scripts/calculate.py](scripts/calculate.py)
+- 业务模型与费用计算详情：[business-model.md](business-model.md)
+- HTML 报告模板与样式规范：[report-template.md](report-template.md)
+- 话术模板与应对策略：[sales-script.md](sales-script.md)

@@ -1,93 +1,39 @@
 /**
- * Design System Typography
- * Based on @shadcn/ui - Design System (Community)
- * 
- * Font Family: Inter
+ * @file typography.js
+ * @description 字体排版设计 Token，基于 Apple 官网设计系统。
+ * 包含字体族、字号、行高及字重。
  */
 
 export const typography = {
-  fontFamily: {
-    sans: '"Inter", sans-serif',
-    mono: '"Menlo", monospace',
+  // 字体族
+  family: {
+    base: '"SF Pro Text", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif',
+    icon: '"SF Pro Icons"',
   },
-  
-  // Font Weights
-  fontWeight: {
-    regular: 400,
-    medium: 500,
+
+  // 字号
+  size: {
+    xs: '12px',
+    sm: '14px',
+    base: '17px',
+    lg: '20px',
+    xl: '24px',
+    xxl: '32px',
+    xxxl: '48px',
+  },
+
+  // 行高
+  lineHeight: {
+    tight: 1.18,
+    snug: 1.29,
+    normal: 1.47,
+    relaxed: 1.59,
+  },
+
+  // 字重
+  weight: {
+    normal: 400,
     semibold: 600,
     bold: 700,
-    extrabold: 800,
   },
-  
-  // Text Styles from Figma
-  styles: {
-    h1: {
-      fontSize: '48px',
-      lineHeight: '1',
-      fontWeight: 800,
-      letterSpacing: '-0.012em',
-    },
-    h2: {
-      fontSize: '30px',
-      lineHeight: '1.2',
-      fontWeight: 600,
-      letterSpacing: '-0.0075em',
-    },
-    h3: {
-      fontSize: '24px',
-      lineHeight: '1.33',
-      fontWeight: 600,
-      letterSpacing: '-0.006em',
-    },
-    h4: {
-      fontSize: '20px',
-      lineHeight: '1.4',
-      fontWeight: 600,
-      letterSpacing: '-0.005em',
-    },
-    p: {
-      fontSize: '16px',
-      lineHeight: '1.75',
-      fontWeight: 400,
-    },
-    blockquote: {
-      fontSize: '16px',
-      lineHeight: '1.5',
-      fontWeight: 400,
-      fontStyle: 'italic',
-    },
-    list: {
-      fontSize: '16px',
-      lineHeight: '1.5',
-      fontWeight: 400,
-    },
-    lead: {
-      fontSize: '20px',
-      lineHeight: '1.4',
-      fontWeight: 400,
-    },
-    large: {
-      fontSize: '18px',
-      lineHeight: '1.55',
-      fontWeight: 600,
-    },
-    small: {
-      fontSize: '14px',
-      lineHeight: '1',
-      fontWeight: 500,
-    },
-    subtle: {
-      fontSize: '14px',
-      lineHeight: '1.42',
-      fontWeight: 400,
-      color: 'muted', // Semantic reference
-    },
-    inlineCode: {
-      fontFamily: '"Menlo", monospace',
-      fontSize: '14px',
-      lineHeight: '1.42',
-      fontWeight: 700,
-    }
-  }
 };

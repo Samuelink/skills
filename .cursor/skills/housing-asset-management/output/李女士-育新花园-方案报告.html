@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>房屋托管服务方案 - 育新花园 - 李女士专属</title>
+    <style>
+        :root {
+            --primary-color: #1a2332;
+            --accent-color: #c9a84c;
+            --bg-color: #f5f6fa;
+            --card-bg: #ffffff;
+            --text-main: #2c3e50;
+            --text-muted: #7f8c8d;
+            --success-color: #27ae60;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 40px;
+            border-radius: 12px 12px 0 0;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .header p {
+            color: var(--accent-color);
+            font-size: 18px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-left: 10px;
+            border-left: 4px solid var(--accent-color);
+            color: var(--primary-color);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .info-item {
+            padding: 15px;
+            background: #f8f9fb;
+            border-radius: 8px;
+        }
+
+        .info-label {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .pricing-table tr {
+            border-bottom: 1px solid #eee;
+        }
+
+        .pricing-table td {
+            padding: 15px 0;
+        }
+
+        .pricing-label {
+            color: var(--text-main);
+        }
+
+        .pricing-value {
+            text-align: right;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .highlight-row {
+            background-color: #fff9e6;
+        }
+
+        .highlight-row td {
+            color: var(--primary-color);
+            font-size: 22px !important;
+        }
+
+        .highlight-row .pricing-value {
+            color: #d35400;
+            font-size: 24px;
+        }
+
+        .promise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .promise-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+        }
+
+        .promise-icon {
+            font-size: 24px;
+            color: var(--accent-color);
+        }
+
+        .promise-content h4 {
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+
+        .promise-content p {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #eee;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -25px;
+            top: 8px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent-color);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        @media print {
+            body { background: white; padding: 0; }
+            .card { box-shadow: none; border: 1px solid #eee; }
+            .header { border-radius: 0; }
+        }
+
+        @media (max-width: 600px) {
+            .header { padding: 20px; }
+            .card { padding: 15px; }
+            .highlight-row td { font-size: 18px !important; }
+            .highlight-row .pricing-value { font-size: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>房屋托管服务方案</h1>
+            <p>专属于 李女士 的定制资产管理方案</p>
+        </div>
+
+        <div class="card">
+            <div class="section-title">房屋基本信息</div>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">物业名称</div>
+                    <div class="info-value">育新花园</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">户型面积</div>
+                    <div class="info-value">三室一厅 / 100㎡</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">装修情况</div>
+                    <div class="info-value">精装修</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">评估月租金</div>
+                    <div class="info-value">¥6,000</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="section-title">收益明细</div>
+            <table class="pricing-table">
+                <tr>
+                    <td class="pricing-label">建议月租金 (100%透明)</td>
+                    <td class="pricing-value">¥6,000</td>
+                </tr>
+                <tr>
+                    <td class="pricing-label">每月服务费 (仅3天租金)</td>
+                    <td class="pricing-value">- ¥600</td>
+                </tr>
+                <tr class="highlight-row">
+                    <td class="pricing-label">您的月净收入</td>
+                    <td class="pricing-value">¥5,400</td>
+                </tr>
+                <tr>
+                    <td class="pricing-label"><strong>保证金 (签约即付)</strong></td>
+                    <td class="pricing-value" style="color: var(--success-color);">¥3,000</td>
+                </tr>
+                <tr>
+                    <td class="pricing-label">预估年净收入</td>
+                    <td class="pricing-value">¥64,800</td>
+                </tr>
+            </table>
+            <p style="margin-top: 15px; font-size: 13px; color: var(--text-muted);">
+                * 注：省心租坚持不赚差价，租金由租客直接支付或公示，我们仅收取约10%的服务费用于全流程托管。
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="section-title">服务承诺</div>
+            <div class="promise-grid">
+                <div class="promise-item">
+                    <div class="promise-icon">🛡️</div>
+                    <div class="promise-content">
+                        <h4>30天出租承诺</h4>
+                        <p>签约后30天内未租出，保证金归业主所有，零风险。</p>
+                    </div>
+                </div>
+                <div class="promise-item">
+                    <div class="promise-icon">✨</div>
+                    <div class="promise-content">
+                        <h4>专业深度保洁</h4>
+                        <p>出租前免费进行全屋深度保洁，提升房屋价值。</p>
+                    </div>
+                </div>
+                <div class="promise-item">
+                    <div class="promise-icon">🔧</div>
+                    <div class="promise-content">
+                        <h4>免费基础维修</h4>
+                        <p>租期内所有基础维修由我们承担，业主无需操心。</p>
+                    </div>
+                </div>
+                <div class="promise-item">
+                    <div class="promise-icon">🔒</div>
+                    <div class="promise-content">
+                        <h4>智能门锁保障</h4>
+                        <p>免费安装智能门锁，严格筛选租客，保障房屋安全。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="section-title">合作流程</div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <strong>签署协议</strong>：明确收益，现场支付 ¥3,000 保证金。
+                </div>
+                <div class="timeline-item">
+                    <strong>房屋整备</strong>：专业保洁、维修、安装智能锁。
+                </div>
+                <div class="timeline-item">
+                    <strong>多渠道推广</strong>：专业摄影上架，全网同步推广。
+                </div>
+                <div class="timeline-item">
+                    <strong>租客筛选</strong>：背景调查，确保高素质租客入住。
+                </div>
+                <div class="timeline-item">
+                    <strong>全程托管</strong>：代收租金、处理报修、到期续租。
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>省心租 - 房屋资产管理专家</strong></p>
+            <p>联系电话：138-8888-6688</p>
+            <p style="margin-top: 10px;">让房东省心，让租客安心</p>
+        </div>
+    </div>
+</body>
+</html>

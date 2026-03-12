@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apple Design System Preview</title>
+    <style>
+        :root {
+            --color-white: rgb(255, 255, 255);
+            --color-black: rgb(0, 0, 0);
+            --color-text-primary: rgb(29, 29, 31);
+            --color-text-secondary: rgb(110, 110, 115);
+            --color-bg-primary: rgb(255, 255, 255);
+            --color-bg-secondary: rgb(250, 250, 252);
+            --color-bg-quaternary: rgb(232, 232, 237);
+            --color-brand-blue: rgb(0, 113, 227);
+            --color-gray-200: rgb(232, 232, 237);
+            --color-alpha-white92: rgba(250, 250, 252, 0.92);
+            
+            --spacing-1: 4px;
+            --spacing-2: 8px;
+            --spacing-3: 12px;
+            --spacing-4: 16px;
+            --spacing-6: 24px;
+            --spacing-8: 32px;
+            --spacing-12: 48px;
+            --spacing-16: 64px;
+            
+            --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-size-xs: 12px;
+            --font-size-sm: 14px;
+            --font-size-base: 17px;
+            --font-size-lg: 20px;
+            --font-size-xl: 24px;
+            --font-size-xxxl: 48px;
+            
+            --radius-md: 8px;
+            --radius-xl: 12px;
+            --radius-pill: 980px;
+            
+            --shadow-md: 3px 5px 30px rgba(0, 0, 0, 0.22);
+            --backdrop-saturate: saturate(180%) blur(20px);
+            --duration-normal: 160ms;
+        }
+
+        body { 
+            margin: 0; 
+            padding: 0; 
+            background-color: var(--color-bg-primary); 
+            font-family: var(--font-family-base);
+            color: var(--color-text-primary);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            padding: var(--spacing-12);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: var(--spacing-16);
+        }
+
+        h1 { font-size: var(--font-size-xxxl); font-weight: 600; margin: 0; }
+        p.subtitle { font-size: var(--font-size-lg); color: var(--color-text-secondary); margin-top: var(--spacing-2); }
+
+        section { margin-bottom: var(--spacing-12); }
+        h2 { 
+            font-size: var(--font-size-xl); 
+            font-weight: 600; 
+            margin-bottom: var(--spacing-6); 
+            border-bottom: 1px solid var(--color-gray-200); 
+            padding-bottom: var(--spacing-2); 
+        }
+
+        .grid { display: flex; gap: var(--spacing-4); flex-wrap: wrap; align-items: center; }
+
+        /* Button Styles */
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            border-radius: var(--radius-pill); border: none; outline: none;
+            cursor: pointer; transition: all var(--duration-normal) ease-in-out;
+            font-family: inherit; font-weight: 400; text-decoration: none;
+            padding: 14px 16px; font-size: var(--font-size-sm);
+        }
+        .btn-primary { background-color: var(--color-brand-blue); color: var(--color-white); }
+        .btn-primary:hover { opacity: 0.9; }
+        .btn-secondary { background-color: var(--color-bg-quaternary); color: var(--color-text-primary); }
+        .btn-secondary:hover { background-color: #d2d2d7; }
+        .btn-sm { padding: 4px 12px; font-size: var(--font-size-xs); }
+        .btn-lg { padding: 16px 24px; font-size: var(--font-size-base); }
+
+        /* Input Styles */
+        .input-wrapper { width: 300px; }
+        input {
+            width: 100%; padding: var(--spacing-3) var(--spacing-4); border-radius: var(--radius-md);
+            background-color: var(--color-bg-secondary); border: 1px solid var(--color-gray-200);
+            font-size: var(--font-size-base); outline: none; transition: border-color 120ms ease-in-out;
+            box-sizing: border-box;
+        }
+        input:focus { border-color: var(--color-brand-blue); }
+
+        /* Card Styles */
+        .card {
+            border-radius: var(--radius-xl); padding: var(--spacing-6);
+            background-color: var(--color-bg-primary); boxShadow: var(--shadow-md);
+            box-shadow: var(--shadow-md); width: 300px;
+        }
+        .card-glass {
+            background-color: var(--color-alpha-white92);
+            backdrop-filter: var(--backdrop-saturate);
+            -webkit-backdrop-filter: var(--backdrop-saturate);
+        }
+        .gradient-bg {
+            background: linear-gradient(45deg, #0071e3, #5ac8fa);
+            padding: var(--spacing-8); border-radius: var(--radius-xl);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Apple Design System</h1>
+            <p class="subtitle">基于 Apple 官网设计细节的可复用 UI 组件库</p>
+        </header>
+
+        <section>
+            <h2>Buttons</h2>
+            <div class="grid">
+                <button class="btn btn-primary">Primary Button</button>
+                <button class="btn btn-secondary">Secondary</button>
+                <button class="btn btn-primary btn-sm">Small</button>
+                <button class="btn btn-primary btn-lg">Large</button>
+            </div>
+        </section>
+
+        <section>
+            <h2>Inputs</h2>
+            <div class="grid">
+                <div class="input-wrapper">
+                    <input type="text" placeholder="Enter something...">
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Cards</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3 style="font-size: var(--font-size-lg); margin: 0 0 var(--spacing-2) 0;">Standard Card</h3>
+                    <p style="color: var(--color-text-secondary); margin: 0;">This is a basic card with default shadow.</p>
+                </div>
+                <div class="gradient-bg">
+                    <div class="card card-glass">
+                        <h3 style="font-size: var(--font-size-lg); margin: 0 0 var(--spacing-2) 0;">Glass Card</h3>
+                        <p style="color: var(--color-text-secondary); margin: 0;">Card with backdrop blur effect.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

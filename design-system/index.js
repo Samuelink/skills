@@ -1,9 +1,8 @@
 /**
- * Design System Entry Point
- * 
- * Exports all components, tokens, and hooks.
+ * @file index.js
+ * @description 设计系统顶层导出。
  */
 
-export * from './components';
 export * from './tokens';
+export * from './components';
 export * from './hooks/useMediaQuery';

@@ -1,11 +1,8 @@
 /**
- * Component Exports
+ * @file index.js
+ * @description 统一导出所有 UI 组件。
  */
 
-export * from './Button';
-export * from './Input';
-export * from './Card';
-export * from './Avatar';
-export * from './Badge';
-export * from './Sheet';
-export * from './ConfirmDialog';
+export { default as Button } from './Button';
+export { default as Input } from './Input';
+export { default as Card } from './Card';
